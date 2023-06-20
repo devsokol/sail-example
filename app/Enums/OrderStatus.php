@@ -1,10 +1,12 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Enums;
 
 final class OrderStatus
 {
-    const InProgress = 1;
-    const Done = 2;
-    const Archive = 3;
+    public const InProgress = 1;
+    public const Done = 2;
+    public const Archive = 3;
 }

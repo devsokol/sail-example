@@ -32,13 +32,7 @@ Route::prefix('v1')
             });
 
             Route::middleware('checkUserRole')->group(function () {
-                Route::resource('users', 'UserController')->only([
-                    'index',
-                    'store',
-                    'show',
-                    'update',
-                    'destroy'
-                ]);
+                Route::resource('users', 'UserController')->only(['store', 'update', 'destroy']);
             });
         });
     });
