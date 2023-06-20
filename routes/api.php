@@ -27,14 +27,18 @@ Route::prefix('v1')
             Route::prefix('auth')->group(function () {
                 Route::post('/logout', 'AuthController@logout');
                 Route::post('/register', 'AuthController@register');
+                Route::get('/me', 'AuthController@me');
                 Route::post('/login', 'AuthController@login')->withoutMiddleware(['auth:api']);
             });
 
-            Route::get('/me', 'UserController@me');
+            Route::middleware('checkUserRole')->group(function () {
+                Route::resource('users', 'UserController')->only([
+                    'index',
+                    'store',
+                    'show',
+                    'update',
+                    'destroy'
+                ]);
+            });
         });
-
-        /**
-        * Unauthorized routes
-        */
-        // Route::get('/test', 'TestController@test');
     });

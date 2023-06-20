@@ -14,6 +14,17 @@ class Role extends Model
     protected $fillable = ['name'];
 
     /**
+     * Get the type.
+     *
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public static function getRole(string $name): self
+    {
+        return self::where('name', $name)->firstOrFail();
+    }
+
+    /**
      * Get the user associated with the roles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
