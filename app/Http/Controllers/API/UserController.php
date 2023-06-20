@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Exceptions\StoreErrorHandler;
 use Exception;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -28,6 +29,16 @@ class UserController extends Controller
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
+    }
+
+    /**
+     * Display a listing of users with their orders.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(): Response
+    {
+        return response()->json(User::with('orders')->get(), Response::HTTP_OK);
     }
 
     /**

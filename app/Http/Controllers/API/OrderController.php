@@ -10,6 +10,8 @@ use Exception;
 use App\Services\OrderService;
 use App\Models\Order;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
+use App\Enums\OrderStatus;
 
 class OrderController extends Controller
 {
@@ -28,6 +30,27 @@ class OrderController extends Controller
     public function __construct(OrderService $orderService)
     {
         $this->orderService = $orderService;
+    }
+
+    /**
+     * Display a listing of orders with optional status filtering.
+     *
+     * @param  Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request): Response
+    {
+        $status = $request->query('status');
+
+        if ($status && !in_array($status, OrderStatus::getAllowedValues())) {
+            return response()->json(['error' => 'Invalid status'], Response::HTTP_BAD_REQUEST);
+        }
+
+        $orders = Order::when($status, function ($query, $status) {
+            return $query->where('status', $status);
+        })->get();
+
+        return response()->json($orders, Response::HTTP_OK);
     }
 
     /**
