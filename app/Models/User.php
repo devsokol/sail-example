@@ -75,4 +75,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(Role::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
