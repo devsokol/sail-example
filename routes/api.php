@@ -32,9 +32,9 @@ Route::prefix('v1')
             });
 
             Route::middleware('checkUserRole')->group(function () {
-                Route::resource('users', 'UserController')->only(['index', 'store', 'update', 'destroy']);
+                Route::apiResource('users', 'UserController')->except(['show']);
             });
 
-            Route::resource('orders', 'OrderController')->only(['index', 'store', 'update', 'destroy']);
+            Route::apiResource('orders', 'OrderController')->except(['show']);
         });
     });

@@ -30,11 +30,7 @@ class OrderRequest extends FormRequest
             ];
         } elseif ($request->isMethod('put')) {
             return [
-                'status' => ['required', 'integer', Rule::in([
-                    OrderStatus::InProgress,
-                    OrderStatus::Done,
-                    OrderStatus::Archive,
-                ])],
+                'status' => ['required', 'integer', Rule::in(OrderStatus::getAllowedValues())],
             ];
         }
 
