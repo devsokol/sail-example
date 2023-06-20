@@ -7,7 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Response;
 
-class UserErrorHandler extends Exception
+class StoreErrorHandler extends Exception
 {
     public function handle(Exception $exception): JsonResponse
     {

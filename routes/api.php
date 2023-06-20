@@ -34,5 +34,7 @@ Route::prefix('v1')
             Route::middleware('checkUserRole')->group(function () {
                 Route::resource('users', 'UserController')->only(['store', 'update', 'destroy']);
             });
+
+            Route::resource('orders', 'OrderController')->only(['store', 'update', 'destroy']);
         });
     });

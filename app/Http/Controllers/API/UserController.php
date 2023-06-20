@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 use App\Models\User;
-use App\Exceptions\UserErrorHandler;
+use App\Exceptions\StoreErrorHandler;
 use Exception;
 use Illuminate\Support\Facades\Gate;
 
@@ -34,13 +34,13 @@ class UserController extends Controller
      * Show the form for creating a new resource.
      *
      * @param UserRequest $request The incoming HTTP request.
-     * @param UserErrorHandler $errorHandler The error handler for the operation.
+     * @param StoreErrorHandler $errorHandler The error handler for the operation.
      *
      * @throws Exception If an error occurs while creating the user.
      *
      * @return Response The HTTP response object.
      */
-    public function store(UserRequest $request, UserErrorHandler $errorHandler): Response
+    public function store(UserRequest $request, StoreErrorHandler $errorHandler): Response
     {
         try {
             $user = $this->userService->store($request->validated());
@@ -55,18 +55,15 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param UserRequest $request The incoming HTTP request.
-     * @param UserErrorHandler $errorHandler The error handler for the operation.
+     * @param StoreErrorHandler $errorHandler The error handler for the operation.
      * @param User $user The user instance to be updated.
      *
      * @throws Exception If an error occurs while updating the user.
      *
      * @return Response The HTTP response object.
      */
-    public function update(
-        UserRequest $request,
-        UserErrorHandler $errorHandler,
-        User $user
-    ): Response {
+    public function update(UserRequest $request, StoreErrorHandler $errorHandler, User $user): Response
+    {
         try {
             $user->fill($request->validated());
             $user->save();

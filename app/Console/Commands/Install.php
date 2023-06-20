@@ -35,7 +35,6 @@ class Install extends Command
             $this->call('db:seed', ['--class' => 'RolesSeeder']);
             $this->call('db:seed', ['--class' => 'UsersSeeder']);
             $this->call('db:seed', ['--class' => 'GoodsSeeder']);
-            $this->call('db:seed', ['--class' => 'OrderSeeder']);
         } else {
             $this->warn('You cannot run this operation in production mode!');
 
